@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 class NewUserTest(unittest.TestCase):
@@ -14,7 +15,21 @@ class NewUserTest(unittest.TestCase):
         self.browser.get('http://127.0.0.1:8000/')
 
         self.assertIn('To Do List', self.browser.title)
-        self.fail('Finish Test')
+        header = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('To Do', header)
+
+
+        inputarea = self.browser.find_element_by_id('id_new_task')
+        self.assertEqual(inputarea.get_attribute('placeholder'), 'Enter a to do task')
+
+        inputarea.send_keys('Buy some milk tomorrow')
+        inputarea.send_keys(Keys.ENTER)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(any(row.text == 'Buy some milk tomorrow' for row in rows))
+
+        self.fail('Add testing for input box to add more to do tasks')
 
 if __name__ == '__main__':
     unittest.main()
