@@ -14,7 +14,7 @@ class NewUserTest(unittest.TestCase):
         self.browser.get('http://127.0.0.1:8000/')
 
         self.assertIn('To Do List', self.browser.title)
-        self.fail(self.browser.title)
+        self.fail('Finish Test')
 
 if __name__ == '__main__':
     unittest.main()
