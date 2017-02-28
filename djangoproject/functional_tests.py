@@ -27,7 +27,7 @@ class NewUserTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(any(row.text == 'Buy some milk tomorrow' for row in rows), "To do task not in table")
+        self.assertIn('1. Buy some milk tomorrow', [row.text for row in rows])
 
         self.fail('Add testing for input box to add more to do tasks')
 
