@@ -1,6 +1,5 @@
-# DjangoProject
+# django-todolist
 
 ## What is it
 
-**DjangoProject** is a Django Web Application that uses Test-Driven Development that allows a user to make and update a to-do list.
-Developed Django and Python programming skills and learned the test-driven methodology. Wrote unit tests and used Selenium for functional testing.
+**django-todolist** is a multi-user task management and assignment application.
