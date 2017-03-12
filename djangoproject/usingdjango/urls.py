@@ -19,5 +19,6 @@ from todolists import views
 
 urlpatterns = [
     url(r'^$', views.home_page, name='home'),
-    #url(r'^admin/', admin.site.urls),
+    url(r'^lists/unique-list/$', views.view_list, name='view_list'),
+    # url(r'^admin/', admin.site.urls),
 ]

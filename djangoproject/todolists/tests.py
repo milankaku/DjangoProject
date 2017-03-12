@@ -35,22 +35,12 @@ class HomePageTest(TestCase):
         response = home_page(request)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/lists/unique-list/')
 
     def test_homepage_only_saves_item_when_prompted(self):
         request = HttpRequest()
         home_page(request)
         self.assertEqual(Item.objects.count(), 0)
-
-    def test_homepage_shows_all_items(self):
-        Item.objects.create(text='Get some sleep')
-        Item.objects.create(text='Wake up')
-
-        request = HttpRequest()
-        response = home_page(request)
-
-        self.assertIn('Get some sleep', response.content.decode())
-        self.assertIn('Wake up', response.content.decode())
 
 class ItemModelTest(TestCase):
 
@@ -70,5 +60,21 @@ class ItemModelTest(TestCase):
         second_saved = saved_items[1]
         self.assertEqual(first_saved.text, 'The first ever list item')
         self.assertEqual(second_saved.text, 'The second list item')
+
+class ListViewTest(TestCase):
+
+    def test_uses_list_template(self):
+        response = self.client.get('lists/unique-list/')
+        self.assertTemplateUsed(response, 'list.html')
+
+    def test_shows_all_items(self):
+        Item.objects.create(text='Get some sleep')
+        Item.objects.create(text='Wake up')
+
+        response = self.client.get('lists/unique-list/')
+
+        self.assertContains(response, 'Get some sleep')
+        self.assertContains(response, 'Wake up')
+
 
 
